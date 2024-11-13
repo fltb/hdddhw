@@ -1,0 +1,34 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-I.",
+      "-I/usr/share/verilator/include",
+      "-I/usr/share/verilator/include/vltstd",
+      "-DVM_COVERAGE=0",
+      "-DVM_SC=0",
+      "-DVM_TRACE=1",
+      "-DVM_TRACE_FST=0",
+      "-DVM_TRACE_VCD=1",
+      "-faligned-new",
+      "-fcf-protection=none",
+      "-Wno-bool-operation",
+      "-Wno-sign-compare",
+      "-Wno-uninitialized",
+      "-Wno-unused-but-set-variable",
+      "-Wno-unused-parameter",
+      "-Wno-unused-variable",
+      "-Wno-shadow",
+      "-I/home/float/g4xk7-mvbjj/HDU/hd-hws/szdl/hdu-dd/jk_ff/build/obj_dir",
+      "-DTOP_NAME=Vjk_ff",
+      "-Os",
+      "-c",
+      "-o",
+      "main.o",
+      "/home/float/g4xk7-mvbjj/HDU/hd-hws/szdl/hdu-dd/jk_ff/csrc/main.cpp"
+    ],
+    "directory": "/home/float/g4xk7-mvbjj/HDU/hd-hws/szdl/hdu-dd/jk_ff/build/obj_dir",
+    "file": "/home/float/g4xk7-mvbjj/HDU/hd-hws/szdl/hdu-dd/jk_ff/csrc/main.cpp",
+    "output": "/home/float/g4xk7-mvbjj/HDU/hd-hws/szdl/hdu-dd/jk_ff/build/obj_dir/main.o"
+  }
+]
