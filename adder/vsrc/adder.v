@@ -1,53 +1,54 @@
-module fullAdder (
+module singleBitAdder (
     input A,
     input B,
     input Cin,
     output Sum,
-    output Cout
+    output CarryOut
 );
     assign Sum = A ^ B ^ Cin;
-    assign Cout = (A & B) | (B & Cin) | (A & Cin);
+    assign CarryOut = (A & B) | (B & Cin) | (A & Cin);
 endmodule
 
-module Adder (
+module multiBitAdder (
     input [3:0] A,
     input [3:0] B,
     input Cin,
     output [3:0] Sum,
-    output Cout
+    output CarryOut
 );
-    wire Cout0, Cout1, Cout2;
-  
-    fullAdder FA0 (
+    wire [2:0] carry;
+
+    singleBitAdder U0 (
         .A(A[0]),
         .B(B[0]),
         .Cin(Cin),
         .Sum(Sum[0]),
-        .Cout(Cout0)
+        .CarryOut(carry[0])
     );
 
-    fullAdder FA1 (
+    singleBitAdder U1 (
         .A(A[1]),
         .B(B[1]),
-        .Cin(Cout0),
+        .Cin(carry[0]),
         .Sum(Sum[1]),
-        .Cout(Cout1)
+        .CarryOut(carry[1])
     );
 
-    fullAdder FA2 (
+    singleBitAdder U2 (
         .A(A[2]),
         .B(B[2]),
-        .Cin(Cout1),
+        .Cin(carry[1]),
         .Sum(Sum[2]),
-        .Cout(Cout2)
+        .CarryOut(carry[2])
     );
 
-    fullAdder FA3 (
+    singleBitAdder U3 (
         .A(A[3]),
         .B(B[3]),
-        .Cin(Cout2),
+        .Cin(carry[2]),
         .Sum(Sum[3]),
-        .Cout(Cout)
+        .CarryOut(CarryOut)
     );
 
 endmodule
+

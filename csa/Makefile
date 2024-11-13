@@ -1,4 +1,4 @@
-TOP_MODULE			:=	multiBitAdder
+TOP_MODULE			:=	csa
 TOP_NAME			:=	V$(TOP_MODULE)
 
 VERILATOR			:=	verilator
