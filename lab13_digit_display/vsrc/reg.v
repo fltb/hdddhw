@@ -1,15 +1,14 @@
 module digit_display (
    input [31:0] data,
    // count should be done in vivado, just increase it when clock arrive
-   input [14:0] count, 
-   input clk,
+   input clk_2ms,
    output reg[7:0] AN,
    output reg[7:0] control_display_signal
 );
    reg [2:0] which=0;
    reg [3:0] digitSelected;
-   always @(negedge clk) begin
-      if (&count) which <= which + 1'b1;
+   always @(posedge clk_2ms) begin
+      which <= which + 1'b1;
    end
    bit_sel_DATA_and_AN BS (
       .bit_sel(which),

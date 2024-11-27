@@ -15,20 +15,18 @@ int main() {
   int sim_time = 0;
 
   // Reset and initialize signals
-  top.clk = 0;           // Initial clock low
+  top.clk_2ms = 0;           // Initial clock low
   top.data = 0x123ABF78; // Example input data
-  top.count = 0;         // Initial count
   top.eval();
   tfp->dump(sim_time++);
 
   // Test: Check digit selection, data mapping, and AN signal
   for (int i = 0; i < 8; ++i) {
     // Simulate count reaching maximum for switching digits
-    top.count = 0x7FFF; // Set count to maximum
-    top.clk = 1;        // Rising edge of clock
+    top.clk_2ms = 0;        // Rising edge of clock
     top.eval();
     tfp->dump(sim_time++);
-    top.clk = 0; // Falling edge of clock
+    top.clk_2ms = 1; // pos edge of clock
     top.eval();
     tfp->dump(sim_time++);
 
