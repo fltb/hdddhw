@@ -1,3 +1,44 @@
+module digit_display_with_clk_spliter (
+   input [31:0] data,
+   input clk_100mhz,
+   output reg[2:0] AN,
+   output reg[7:0] control_display_signal
+
+);
+    
+endmodule
+
+module clksplitter (
+   input clk100mhz,
+   output clk_100hz,
+   output clk_1hz
+);
+   reg [31:0] cnt100hz;
+   reg [31:0] cnt1hz;
+   initial begin
+      cnt100hz = 32'd0;
+      cnt1hz = 32'd0;
+   end
+
+   always @(posedge clk100mhz) begin
+      if (cnt100hz == (32'd1000000 - 1))begin
+         cnt100hz <= 0;
+      end else begin
+         cnt100hz <= cnt100hz + 1;
+      end
+
+      if (cnt1hz == (32'd100000000 - 1))begin
+         cnt1hz <= 0;
+      end else begin
+         cnt1hz <= cnt1hz + 1;
+      end
+   end
+
+   assign clk_100hz = (cnt100hz == 32'd0);
+   assign clk_1hz = (cnt1hz == 32'd0);
+endmodule
+
+
 module digit_display (
    input [31:0] data,
    // count should be done in vivado, just increase it when clock arrive

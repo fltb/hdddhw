@@ -33,7 +33,7 @@ int main() {
     int j = (i + 1) % 8;
 
     // Expected AN and digit selection
-    uint8_t expected_AN = ~(1 << (7 - j)); // Activate the i-th segment
+    uint8_t expected_AN = j; // Activate the i-th segment
     uint8_t expected_digit =
         (top.data >> ((7 - j) * 4)) & 0xF; // Extract 4 bits for the digit
 
