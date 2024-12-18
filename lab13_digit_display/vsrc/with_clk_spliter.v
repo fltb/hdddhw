@@ -7,16 +7,16 @@ module digit_display_with_clk_spliter (
 );
     wire clk_100hz;
     clksplitter C (
-        .clk100mhz(clk_100mhz)
+        .clk100mhz(clk_100mhz),
         .clk_100hz(clk_100hz)
-    )
+    );
 
     digit_display D (
            .data(data),
            .clk_100hz(clk_100hz),
             .AN(AN),
             .control_display_signal(control_display_signal)
-    )
+    );
 endmodule
 
 module clksplitter (
