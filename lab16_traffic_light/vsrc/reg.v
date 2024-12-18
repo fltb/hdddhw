@@ -1,7 +1,7 @@
 module traffic_light_display_unit (
-   input clk_2ms,
-   input clk_1s,
-   output reg[7:0] AN,
+   input clk_100hz,
+   input clk_1hz,
+   output reg[2:0] AN,
    output reg[7:0] control_display_signal,
    // this is test, for product it should be placed in module reg
    output reg[31:0] data,
@@ -19,7 +19,7 @@ module traffic_light_display_unit (
       RGY_PRI=3'b010; // green
       RGY_SEC=3'b100; // red
    end
-   always @(posedge clk_1s) begin
+   always @(posedge clk_1hz) begin
       case (state)
          2'b00:begin
             if (8'd0 == count) begin
@@ -69,25 +69,23 @@ module traffic_light_display_unit (
    end
 
    digit_display D (
-      .clk_2ms(clk_2ms),
+      .clk_100hz(clk_100hz),
       .data(data),
       .AN(AN),
       .control_display_signal(control_display_signal)
    );
 endmodule
 
-
-
 module digit_display (
    input [31:0] data,
    // count should be done in vivado, just make this clock
-   input clk_2ms,
-   output reg[7:0] AN,
+   input clk_100hz,
+   output reg[2:0] AN,
    output reg[7:0] control_display_signal
 );
    reg [2:0] which=0;
    reg [3:0] digitSelected;
-   always @(posedge clk_2ms) begin
+   always @(posedge clk_100hz) begin
       which <= which + 1'b1;
    end
    bit_sel_DATA_and_AN BS (
@@ -105,41 +103,34 @@ endmodule
 module bit_sel_DATA_and_AN (
    input [2:0] bit_sel,
    input [31:0] data,
-   output reg[7:0] AN,
+   output reg[2:0] AN,
    output reg[3:0] data_selected
 );
+   assign AN = bit_sel;
    always @(*) begin
          case (bit_sel)
          3'd0: begin
-            AN = 8'b0111_1111;
             data_selected = data[31:28];
          end  
          3'd1: begin
-            AN = 8'b1011_1111;
             data_selected = data[27:24];
          end
          3'd2: begin
-            AN = 8'b1101_1111;
             data_selected = data[23:20];
          end
          3'd3: begin
-            AN = 8'b1110_1111;
             data_selected = data[19:16];
          end
          3'd4: begin
-            AN = 8'b1111_0111;
             data_selected = data[15:12];
          end
          3'd5: begin
-            AN = 8'b1111_1011;
             data_selected = data[11:8];
          end
          3'd6: begin
-            AN = 8'b1111_1101;
             data_selected = data[7:4];
          end
          3'd7: begin
-            AN = 8'b1111_1110;
             data_selected = data[3:0];
          end
       endcase

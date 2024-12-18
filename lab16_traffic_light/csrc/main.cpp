@@ -16,22 +16,22 @@ int main() {
   int sim_time = 0;
 
   // Reset and initialize signals
-  top.clk_2ms = 0; // Initialize 2ms clock signal
-  top.clk_1s = 0;  // Initialize 1s clock signal
+  top.clk_100hz = 0; // Initialize 2ms clock signal
+  top.clk_1hz = 0;  // Initialize 1s clock signal
   top.eval();      // Evaluate initial state
   tfp->dump(sim_time++);
 
   // Simulate for a given period
   for (int cycle = 0; cycle < 2000; ++cycle) { // Simulate 500 clock cycles
     // Toggle the 2ms clock signal
-    top.clk_2ms = !top.clk_2ms;
+    top.clk_100hz = !top.clk_100hz;
     top.eval();
     tfp->dump(sim_time++);
 
     // Toggle the 1s clock signal every 500ms (assuming clk_2ms toggles every
     // 2ms)
     if (cycle % 4 == 0) {
-      top.clk_1s = !top.clk_1s;
+      top.clk_1hz = !top.clk_1hz;
     }
 
     // Evaluate the circuit
@@ -40,7 +40,7 @@ int main() {
 
     // Display the output for debugging
     std::cout << "Time: " << sim_time << ", Second: " <<( (int)(cycle) / 8) + 1
-              << ", AN: " << std::bitset<8>(top.AN)
+              << ", AN: " << std::bitset<3>(top.AN)
               << ", control_display_signal: "
               << std::bitset<8>(top.control_display_signal)
               << ", NUM_PRI: " << ((top.data & 0xFFFF0000)>>16)
