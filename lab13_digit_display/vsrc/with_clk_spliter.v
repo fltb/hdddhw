@@ -5,19 +5,27 @@ module digit_display_with_clk_spliter (
    output reg[7:0] control_display_signal
 
 );
-    
+    wire clk_100hz;
+    clksplitter C (
+        .clk100mhz(clk_100mhz)
+        .clk_100hz(clk_100hz)
+    )
+
+    digit_display D (
+           .data(data),
+           .clk_100hz(clk_100hz),
+            .AN(AN),
+            .control_display_signal(control_display_signal)
+    )
 endmodule
 
 module clksplitter (
    input clk100mhz,
-   output clk_100hz,
-   output clk_1hz
+   output clk_100hz
 );
    reg [31:0] cnt100hz;
-   reg [31:0] cnt1hz;
    initial begin
       cnt100hz = 32'd0;
-      cnt1hz = 32'd0;
    end
 
    always @(posedge clk100mhz) begin
@@ -27,15 +35,9 @@ module clksplitter (
          cnt100hz <= cnt100hz + 1;
       end
 
-      if (cnt1hz == (32'd100000000 - 1))begin
-         cnt1hz <= 0;
-      end else begin
-         cnt1hz <= cnt1hz + 1;
-      end
    end
 
    assign clk_100hz = (cnt100hz == 32'd0);
-   assign clk_1hz = (cnt1hz == 32'd0);
 endmodule
 
 
