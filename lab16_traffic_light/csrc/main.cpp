@@ -10,8 +10,8 @@ int main() {
   VerilatedVcdC *tfp = new VerilatedVcdC;
   Vtraffic_light_display_unit top; // Instantiate the top-level module
 
-  top.trace(tfp, 99); // Set up waveform tracing
-  tfp->open("./build/wave.vcd");
+  // top.trace(tfp, 99); // Set up waveform tracing
+  // tfp->open("./build/wave.vcd");
 
   int sim_time = 0;
 
@@ -30,7 +30,7 @@ int main() {
 
     // Toggle the 1s clock signal every 500ms (assuming clk_2ms toggles every
     // 2ms)
-    if (cycle % 4 == 0) {
+    if (cycle % 40 == 0) {
       top.clk_1hz = !top.clk_1hz;
     }
 
