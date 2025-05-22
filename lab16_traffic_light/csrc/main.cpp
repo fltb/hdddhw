@@ -39,7 +39,7 @@ int main() {
     tfp->dump(sim_time++);
 
     // Display the output for debugging
-    std::cout << "Time: " << sim_time << ", Second: " <<( (int)(cycle) / 8) + 1
+    std::cout << "Time: " << sim_time << ", Second: " <<( (int)(cycle) / 80) + 1
               << ", AN: " << std::bitset<3>(top.AN)
               << ", control_display_signal: "
               << std::bitset<8>(top.control_display_signal)

@@ -21,23 +21,24 @@ endmodule
 
 module clksplitter (
    input clk100mhz,
-   output clk_100hz
+   output reg clk_100hz
 );
    reg [31:0] cnt100hz;
    initial begin
       cnt100hz = 32'd0;
+      clk_100hz = 1'd0;
    end
 
    always @(posedge clk100mhz) begin
       if (cnt100hz == (32'd1000000 - 1))begin
          cnt100hz <= 0;
+         clk_100hz <= ~clk_100hz;
       end else begin
          cnt100hz <= cnt100hz + 1;
       end
 
    end
 
-   assign clk_100hz = (cnt100hz == 32'd0);
 endmodule
 
 
